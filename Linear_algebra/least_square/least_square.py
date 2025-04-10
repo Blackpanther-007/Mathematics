@@ -15,6 +15,7 @@ import pandas as pd
     
 def Find_value_of_C_D():
     A = np.matrix([np.ones_like(x_1), x_1])
+    
 
 df = pd.read_csv('C:/Users/HP/Documents/codes/Mathematics/least_square/dataset.csv')
 print(df.head)
