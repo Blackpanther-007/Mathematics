@@ -1,23 +1,42 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.animation as animtn
 import pandas as pd
 
-# def Func(x1,x2):
+def find_coefficients(A, d):
+    X = np.linalg.lstsq(A, d, rcond=None)[0]
+    return X
 
+# Load data
+df = pd.read_csv('C:/Users/HP/Documents/codes/Mathematics/Linear_algebra/least_square/dataset.csv')
+print(df.head())
 
-# def min_err(Augmented, N, C, D):#augmented matrix is matrix with all input and out put with augmented results for particular x1 and N is number of datasets we have
-#     A = Augmented
-#     err_squre = 0
-#     for i in range(N):
-#         err_squre += np.square((C*A[i][0]) + (D*A[i][1])-(A[i][2]))
-    
-    
-def Find_value_of_C_D():
-    A = np.matrix([np.ones_like(x_1), x_1])
-    
+# Prepare data
+x1 = df['x1'].values
+x2 = df['x2'].values
+x3 = df['x3'].values
+y = df['y'].values
 
-df = pd.read_csv('C:/Users/HP/Documents/codes/Mathematics/least_square/dataset.csv')
-print(df.head)
-print(df['x1'])
+# Create design matrix with all features (including intercept)
+A = np.column_stack([np.ones_like(x1), x1, x2, x3])
+d = y.reshape(-1, 1)  # Make sure d is a column vector
 
+# Calculate coefficients
+X = find_coefficients(A, d)
+print("\nCoefficients:")
+print(f"Intercept (C): {X[0][0]:.4f}")
+print(f"x1 coefficient (D): {X[1][0]:.4f}")
+print(f"x2 coefficient: {X[2][0]:.4f}")
+print(f"x3 coefficient: {X[3][0]:.4f}")
+
+# Predictions
+y_pred = A @ X
+
+# Plotting actual vs predicted
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.scatter(y, y_pred, color='blue')
+ax.plot([min(y), max(y)], [min(y), max(y)], 'r--')  # Perfect prediction line
+ax.set_xlabel('Actual Values')
+ax.set_ylabel('Predicted Values')
+ax.set_title('Actual vs Predicted Values')
+ax.grid(True)
+plt.show()
