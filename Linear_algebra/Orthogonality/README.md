@@ -15,4 +15,4 @@ A Python implementation of the Gram-Schmidt process to convert a matrix into an 
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/Blackpanther-007/Mathematics/tree/master/Linear_algebra/Orthogonality](https://github.com/Blackpanther-007/Mathematics/tree/master/Linear_algebra/Orthogonality)
+   git clone https://github.com/Blackpanther-007/Mathematics/tree/master/Linear_algebra/Orthogonality
